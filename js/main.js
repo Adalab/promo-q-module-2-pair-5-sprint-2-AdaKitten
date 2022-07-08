@@ -10,6 +10,7 @@ const buttonCancelForm = document.querySelector('.js-btn-cancel');
 const inputDesc = document.querySelector('.js-input-desc');
 const inputPhoto = document.querySelector('.js-input-photo');
 const inputName = document.querySelector('.js-input-name');
+const inputRace =document.querySelector ('.js-input-race')
 const linkNewFormElememt = document.querySelector('.js-button-new-form');
 const labelMesageError = document.querySelector('.js-label-error');
 const input_search_desc = document.querySelector('.js_in_search_desc');
@@ -79,17 +80,38 @@ function handleClickNewCatForm(event) {
         hideNewCatForm();
     }
 }
+//Crear función que nos recoja los datos en un objeto.
+const newKittenDataObject = {
+    name:'',
+    desc:'',
+    image:'',
+    race:'',
+  };
+
 //Adicionar nuevo gatito
 function addNewKitten(event) {
+         
     event.preventDefault();
     const valueDesc = inputDesc.value;
     const valuePhoto = inputPhoto.value;
     const valueName = inputName.value;
+    const valueRace = inputRace.value;
     if (valueDesc === "" && valuePhoto === "" && valueName === "") {
         labelMesageError.innerHTML = "Debe rellenar todos los valores";
     } else {
         if (valueDesc !== "" && valuePhoto !== "" && valueName !== "") {
             labelMesageError.innerHTML = "";
+            function getNewKittenData(){
+                newKittenDataObject.name =valueName;
+                newKittenDataObject.desc =valueDesc;
+                newKittenDataObject.image =valuePhoto;
+                newKittenDataObject.race =valueRace;
+                kittenDataList.push(newKittenDataObject);
+            }
+        getNewKittenData();
+        renderKittenList(kittenDataList);
+        cancelNewKitten(event);
+        console.log(newKittenDataObject);
         }
     }
 }
@@ -100,6 +122,7 @@ function cancelNewKitten(event) {
     inputDesc.value = "";
     inputPhoto.value = "";
     inputName.value = "";
+    inputRace.value='';
 }
 
 //Filtrar por descripción
